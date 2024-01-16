@@ -10,8 +10,45 @@ class Game {
         this.drawIntervalId = undefined
 
         this.background = new Background(this.ctx)
+
+        this.obstacles = []
+        this.obstacles.push(new Obstacle(this.ctx, 141, 92))
+        this.obstacles.push(new Obstacle(this.ctx, 235, 92))
+        this.obstacles.push(new Obstacle(this.ctx, 329, 92))
+        this.obstacles.push(new Obstacle(this.ctx, 424, 92))
+        this.obstacles.push(new Obstacle(this.ctx, 518, 92))
+        this.obstacles.push(new Obstacle(this.ctx, 612, 92))
+
+        this.obstacles.push(new Obstacle(this.ctx, 141, 185))
+        this.obstacles.push(new Obstacle(this.ctx, 235, 185))
+        this.obstacles.push(new Obstacle(this.ctx, 329, 185))
+        this.obstacles.push(new Obstacle(this.ctx, 424, 185))
+        this.obstacles.push(new Obstacle(this.ctx, 518, 185))
+        this.obstacles.push(new Obstacle(this.ctx, 612, 185))
+
+        this.obstacles.push(new Obstacle(this.ctx, 141, 277))
+        this.obstacles.push(new Obstacle(this.ctx, 235, 277))
+        this.obstacles.push(new Obstacle(this.ctx, 329, 277))
+        this.obstacles.push(new Obstacle(this.ctx, 424, 277))
+        this.obstacles.push(new Obstacle(this.ctx, 518, 277))
+        this.obstacles.push(new Obstacle(this.ctx, 612, 277))
+
+        this.obstacles.push(new Obstacle(this.ctx, 141, 369))
+        this.obstacles.push(new Obstacle(this.ctx, 235, 369))
+        this.obstacles.push(new Obstacle(this.ctx, 329, 369))
+        this.obstacles.push(new Obstacle(this.ctx, 424, 369))
+        this.obstacles.push(new Obstacle(this.ctx, 518, 369))
+        this.obstacles.push(new Obstacle(this.ctx, 612, 369))
+
+        this.obstacles.push(new Obstacle(this.ctx, 141, 461))
+        this.obstacles.push(new Obstacle(this.ctx, 235, 461))
+        this.obstacles.push(new Obstacle(this.ctx, 329, 461))
+        this.obstacles.push(new Obstacle(this.ctx, 424, 461))
+        this.obstacles.push(new Obstacle(this.ctx, 518, 461))
+        this.obstacles.push(new Obstacle(this.ctx, 612, 461))
+
         this.bomberman = new Bomberman(this.ctx, 663, 495)
-        this.bomb = new Bomb(this.ctx, 100, 100)
+
     }
 
     onKeyEvent(event) {
@@ -24,8 +61,22 @@ class Game {
                 this.clear()
                 this.move()
                 this.draw()
+                this.checkCollision()
             }, this.fps)        
         }
+    }
+
+    checkCollision() {
+        this.obstacles.forEach((obstacle) => {
+            if (obstacle.collidesWith(this.bomberman)) {
+                this.bomberman.movements = {
+                    right: false,
+                    left: false,
+                    up: false,
+                    down: false
+                }
+            }
+        }) 
     }
 
     stop() {
@@ -40,7 +91,7 @@ class Game {
     draw() {
         this.background.draw()
         this.bomberman.draw()
-        this.bomb.draw()
+        this.obstacles.forEach(obstacle => obstacle.draw())
     }
 
     clear() {

@@ -61,6 +61,16 @@ class Bomberman {
         } else if (this.movements.down) {
             this.y += this.vy
         }
+
+        if (this.x < WALL_X_LEFT) {
+            this.x = WALL_X_LEFT
+        } else if (this.x > WALL_X_RIGHT) {
+            this.x = WALL_X_RIGHT
+        } else if (this.y < WALL_Y_UP) {
+            this.y = WALL_Y_UP
+        } else if (this.y > WALL_Y_DOWN) {
+            this.y = WALL_Y_DOWN
+        }
     }
 
     draw() {

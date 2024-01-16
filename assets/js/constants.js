@@ -12,3 +12,12 @@ const KEY_BOMB = 32
 
 const BOMBERMAN_RUN_ANIMATION_TICK = 10
 const BOMBERMAN_SPEED_MOVE = 3.5
+
+const WALL_X_RIGHT = 665
+const WALL_X_LEFT = 95
+const WALL_Y_UP = 30
+const WALL_Y_DOWN = 495
+
+const OBSTACLE_H = 30
+const OBSTACLE_W = 46
+
