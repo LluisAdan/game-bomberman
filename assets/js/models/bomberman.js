@@ -84,7 +84,7 @@ class Bomberman {
     animate() {
         this.animationTick++
 
-        if (this.movements.right && this.animationTick >= 10) {
+        if (this.movements.right && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
             this.animationTick = 0
             this.sprite.horizontalFrameIndex++
             this.sprite.verticalFrameIndex = 3
@@ -93,7 +93,7 @@ class Bomberman {
                 this.sprite.horizontalFrameIndex = 0
             }
 
-        } else if (this.movements.left && this.animationTick >= 10) {
+        } else if (this.movements.left && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
             this.animationTick = 0
             this.sprite.horizontalFrameIndex++
             this.sprite.verticalFrameIndex = 2
@@ -102,7 +102,7 @@ class Bomberman {
                 this.sprite.horizontalFrameIndex = 0
             }
 
-        } else if (this.movements.up  && this.animationTick >= 10) {
+        } else if (this.movements.up  && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
             this.animationTick = 0
             this.sprite.horizontalFrameIndex++
             this.sprite.verticalFrameIndex = 0
@@ -111,7 +111,7 @@ class Bomberman {
                 this.sprite.horizontalFrameIndex = 0
             }
 
-        } else if (this.movements.down  && this.animationTick >= 10) {
+        } else if (this.movements.down  && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
             this.animationTick = 0
             this.sprite.horizontalFrameIndex++
             this.sprite.verticalFrameIndex = 1
@@ -119,6 +119,12 @@ class Bomberman {
             if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
                 this.sprite.horizontalFrameIndex = 0
             }
+        } else if (!this.movements.right && !this.movements.left && !this.movements.up && !this.movements.down) {
+            this.sprite.horizontalFrameIndex = 0
+        }
+
+        if (this.animationTick === 100) {
+            this.animationTick = 0
         }
     }
 

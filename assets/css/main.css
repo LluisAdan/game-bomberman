@@ -1,4 +1,10 @@
 
-canvas {
-    border: 1px solid black
+#main-canvas {
+    position: absolute
+}
+
+#second-canvas {
+    /* border: 5px solid red; */
+    position: absolute;
+    
 }

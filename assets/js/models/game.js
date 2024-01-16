@@ -10,7 +10,8 @@ class Game {
         this.drawIntervalId = undefined
 
         this.background = new Background(this.ctx)
-        this.bomberman = new Bomberman(this.ctx, 200, 200)
+        this.bomberman = new Bomberman(this.ctx, 663, 495)
+        this.bomb = new Bomb(this.ctx, 100, 100)
     }
 
     onKeyEvent(event) {
@@ -39,6 +40,7 @@ class Game {
     draw() {
         this.background.draw()
         this.bomberman.draw()
+        this.bomb.draw()
     }
 
     clear() {
