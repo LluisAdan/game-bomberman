@@ -7,8 +7,8 @@ class Bomberman {
         this.vx = BOMBERMAN_SPEED_MOVE
         this.y = y
         this.vy = BOMBERMAN_SPEED_MOVE
-        this.w = 17 * 2.5
-        this.h = 23 * 2.5
+        this.w = BOMBERMAN_W
+        this.h = BOMBERMAN_H
 
         this.sprite = new Image()
         this.sprite.src = '/assets/img/bomberman/all-bomberman.png'
@@ -31,6 +31,8 @@ class Bomberman {
 
         this.animationTick = 0
 
+        this.bombs = []
+
     }
 
     onKeyEvent(event) {
@@ -47,6 +49,9 @@ class Bomberman {
                 break
             case KEY_DOWN:
                 this.movements.down = enabled
+                break
+            case KEY_BOMB:
+                this.bombing()
                 break
         }
     }
@@ -88,6 +93,12 @@ class Bomberman {
             )
 
             this.animate()
+            this.bombs.forEach(bomb => {
+                bomb.draw()
+                setTimeout(() => {
+                    this.clear()
+                }, 3000)
+            })
         }
     }
 
@@ -138,4 +149,16 @@ class Bomberman {
         }
     }
 
+    bombing() {
+        if (this.bombs.length < 1) {
+        this.bombs.push(new Bomb(this.ctx, this.x, this.y))
+        }
+    }
+
+    clear() {
+        if (this.bombs.length != 0) {
+            this.bombs.pop()
+        }
+
+    }
 }

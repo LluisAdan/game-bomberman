@@ -47,6 +47,7 @@ class Game {
         this.obstacles.push(new Obstacle(this.ctx, 518, 461))
         this.obstacles.push(new Obstacle(this.ctx, 612, 461))
 
+
         this.bomberman = new Bomberman(this.ctx, 663, 495)
 
     }
@@ -61,7 +62,7 @@ class Game {
                 this.clear()
                 this.move()
                 this.draw()
-                this.checkCollision()
+                //this.checkCollision()
             }, this.fps)        
         }
     }
@@ -91,7 +92,7 @@ class Game {
     draw() {
         this.background.draw()
         this.bomberman.draw()
-        this.obstacles.forEach(obstacle => obstacle.draw())
+        //this.obstacles.forEach(obstacle => obstacle.draw())
     }
 
     clear() {

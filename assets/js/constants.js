@@ -10,8 +10,12 @@ const KEY_UP = 87
 const KEY_DOWN = 83
 const KEY_BOMB = 32
 
+const BOMBERMAN_H = 23 * 2.5
+const BOMBERMAN_W = 17 * 2.5
 const BOMBERMAN_RUN_ANIMATION_TICK = 10
 const BOMBERMAN_SPEED_MOVE = 3.5
+
+
 
 const WALL_X_RIGHT = 665
 const WALL_X_LEFT = 95
