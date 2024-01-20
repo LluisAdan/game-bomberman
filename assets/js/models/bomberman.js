@@ -57,6 +57,11 @@ class Bomberman {
     }
 
     move() {
+        if (this.stop) {
+            return
+        }
+
+
         if (this.movements.right) {
             this.x += this.vx
         } else if (this.movements.left) {
@@ -93,6 +98,7 @@ class Bomberman {
             )
 
             this.animate()
+            
             this.bombs.forEach(bomb => {
                 bomb.draw()
                 setTimeout(() => {
@@ -156,9 +162,8 @@ class Bomberman {
     }
 
     clear() {
-        if (this.bombs.length != 0) {
+        if (this.bombs.length) {
             this.bombs.pop()
         }
-
     }
 }

@@ -12,16 +12,42 @@ class Obstacle {
 
     draw() {
         this.ctx.fillRect(this.x, this.y, this.w, this.h)
-        this.ctx.fillStyle = 'rgba(225,225,225,100)'
+        this.ctx.fillStyle = 'rgba( 225, 225, 225, 0)'
     }
 
-    collidesWith(element) {
+    collidesWithL(element) {
         return (
-            this.x + this.w > element.x &&
-            this.x + element.x + element.w &&
-            this.y + this.h > element.h &&
-            this.y < element.y + element.h
+            element.x + element.w >= this.x &&
+            element.x + element.w <= this.x + 5 &&
+            element.y + element.h > this.y &&
+            element.y < this.y + this.h
         )
-    }
+      }
 
+    collidesWithR(element) {
+        return (
+            element.x <= this.x + this.w &&
+            element.x >= this.x + this.w - 5 &&
+            element.y + element.h > this.y &&
+            element.y < this.y + this.h 
+        )
+      }
+
+    collidesWithU(element) {
+        return (
+            element.y + element.h >= this.y &&
+            element.y + element.h <= this.y + 5 &&
+            element.x + element.w > this.x &&
+            element.x < this.x + this.w
+        )
+      }
+
+    collidesWithD(element) {
+        return (
+            element.y <= this.y + this.h &&
+            element.y >= this.y + this.h - 5 &&
+            element.x + element.w > this.x &&
+            element.x < this.x + this.w
+        )
+      }
 }
