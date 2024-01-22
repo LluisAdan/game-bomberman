@@ -1,18 +1,37 @@
-class Obstacle {
+class Box {
 
     constructor(ctx, x, y) {
         this.ctx = ctx
         
         this.x = x
         this.y = y
-        this.w = OBSTACLE_W
-        this.h = OBSTACLE_H
+        this.w = BOX
+        this.h = BOX
+
+        this.sprite = new Image()
+        this.sprite.src = 'assets/img/box/Box 02.png'
+        this.sprite.horizontalFrames = 1
+        this.sprite.horizontalFrameIndex = 0
+        this.sprite.onload = () => {
+            this.sprite.isReady = true
+        }
 
     }
 
     draw() {
-        this.ctx.fillRect(this.x, this.y, this.w, this.h)
-        this.ctx.fillStyle = 'rgba( 225, 225, 225, 0)'
+        if (this.sprite.isReady) {
+            this.ctx.drawImage(
+                this.sprite,
+                0,
+                0,
+                this.sprite.width,
+                this.sprite.height,
+                this.x,
+                this.y,
+                this.w,
+                this.h
+            )
+        }
     }
 
     collidesWithL(element) {
@@ -50,4 +69,5 @@ class Obstacle {
             element.x < this.x + this.w
         )
     }
+
 }

@@ -98,14 +98,21 @@ class Bomberman {
             )
 
             this.animate()
-            
-            this.bombs.forEach(bomb => {
-                bomb.draw()
-                setTimeout(() => {
-                    this.clear()
-                }, 3000)
-            })
         }
+
+        this.bombs.forEach(bomb => {
+            bomb.draw()
+            bomb.timeBomb++
+
+        })
+
+        if (this.timeBomb >= 179) {
+            bomb.exploit()
+        }
+
+        this.clear()
+
+        this.checkCollision()
     }
 
     animate() {
@@ -157,13 +164,31 @@ class Bomberman {
 
     bombing() {
         if (this.bombs.length < 1) {
-        this.bombs.push(new Bomb(this.ctx, this.x, this.y))
+        this.bombs.push(new Bomb(this.ctx, this.x - 4, this.y))
         }
     }
 
     clear() {
-        if (this.bombs.length) {
-            this.bombs.pop()
+        this.bombs = this.bombs.filter((bomb) => bomb.timeBomb <= 180)
+    }
+
+    checkCollision() {
+        if (this.bombs.length > 0) {
+            this.bombs.forEach((bomb) => {
+                if (bomb.collidesWithL(this)) {
+                this.x = bomb.x - this.w
+                this.movements.right = false
+                } else if (bomb.collidesWithR(this)) {
+                this.x = bomb.x + bomb.w
+                this.movements.left = false
+                } else if (bomb.collidesWithU(this)) {
+                this.y = bomb.y - this.h
+                this.movements.down = false
+                } else if (bomb.collidesWithD(this)) {
+                this.y = bomb.y + bomb.h
+                this.movements.up = false
+                }
+            })
         }
     }
 }

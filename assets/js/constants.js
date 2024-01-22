@@ -10,21 +10,21 @@ const KEY_UP = 87
 const KEY_DOWN = 83
 const KEY_BOMB = 32
 
-const WALL_X_RIGHT = 665
+const WALL_X_RIGHT = 670
 const WALL_X_LEFT = 95
 const WALL_Y_UP = 30
-const WALL_Y_DOWN = 495
+const WALL_Y_DOWN = 505
 
-const OBSTACLE_H = 14
-const OBSTACLE_W = 38
+const OBSTACLE_W = 45
+const OBSTACLE_H = 30
 
-const BOMBERMAN_H = 23 * 2.5
-const BOMBERMAN_W = 17 * 2.5
+const BOX = 50
+
+const BOMBERMAN_H = 23 * 2
+const BOMBERMAN_W = 17 * 2
 const BOMBERMAN_RUN_ANIMATION_TICK = 10
 const BOMBERMAN_SPEED_MOVE = 3.5
 
-const BOMB_H = 16 * 3.5
-const BOMB_W = 16 * 3.5
+const BOMB = 16 * 2.5
 
-
-
+const EXPLOSION = 45
