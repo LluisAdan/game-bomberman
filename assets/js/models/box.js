@@ -54,7 +54,7 @@ class Box {
 
     collidesWithU(element) {
         return (
-            element.y + element.h >= this.y &&
+            element.y + element.h - 10 >= this.y &&
             element.y + element.h <= this.y + 5 &&
             element.x + element.w > this.x &&
             element.x < this.x + this.w
@@ -69,5 +69,4 @@ class Box {
             element.x < this.x + this.w
         )
     }
-
 }

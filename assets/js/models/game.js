@@ -8,7 +8,15 @@ class Game {
     this.fps = FPS;
     this.drawIntervalId = undefined;
 
+    /*
+    this.timeRemaining = 60
+    this.timer = setInterval(() => this.updateTimer(), 1000)
+    */
+
     this.background = new Background(this.ctx);
+
+    this.explosions = []
+    this.timeExplosion = 0
 
     this.obstacles = []
     this.obstacles.push(new Obstacle(this.ctx, 142, 95))
@@ -49,112 +57,131 @@ class Game {
     this.bomberman = new Bomberman(this.ctx, 670, 505)
 
     this.boxes = []
-    this.boxes.push(new Box(this.ctx, 187, 42))
-    this.boxes.push(new Box(this.ctx, 234, 42))
-    this.boxes.push(new Box(this.ctx, 281, 42))
-    this.boxes.push(new Box(this.ctx, 328, 42))
-    this.boxes.push(new Box(this.ctx, 376, 42))
-    this.boxes.push(new Box(this.ctx, 423, 42))
-    this.boxes.push(new Box(this.ctx, 470, 42))
-    this.boxes.push(new Box(this.ctx, 517, 42))
-    this.boxes.push(new Box(this.ctx, 564, 42))
+    this.boxes.push(new Box(this.ctx, 189, 44))
+    this.boxes.push(new Box(this.ctx, 236, 44))
+    this.boxes.push(new Box(this.ctx, 283, 44))
+    this.boxes.push(new Box(this.ctx, 330, 44))
+    this.boxes.push(new Box(this.ctx, 378, 44))
+    this.boxes.push(new Box(this.ctx, 425, 44))
+    this.boxes.push(new Box(this.ctx, 472, 44))
+    this.boxes.push(new Box(this.ctx, 519, 44))
+    this.boxes.push(new Box(this.ctx, 566, 44))
     
-    this.boxes.push(new Box(this.ctx, 187, 91))
-    this.boxes.push(new Box(this.ctx, 281, 91))
-    this.boxes.push(new Box(this.ctx, 376, 91))
-    this.boxes.push(new Box(this.ctx, 470, 91))
-    this.boxes.push(new Box(this.ctx, 564, 91))
+    this.boxes.push(new Box(this.ctx, 189, 93))
+    this.boxes.push(new Box(this.ctx, 283, 93))
+    this.boxes.push(new Box(this.ctx, 378, 93))
+    this.boxes.push(new Box(this.ctx, 472, 93))
+    this.boxes.push(new Box(this.ctx, 566, 93))
 
-    this.boxes.push(new Box(this.ctx, 92, 136))
-    this.boxes.push(new Box(this.ctx, 140, 136))
-    this.boxes.push(new Box(this.ctx, 187, 136))
-    this.boxes.push(new Box(this.ctx, 234, 136))
-    this.boxes.push(new Box(this.ctx, 281, 136))
-    this.boxes.push(new Box(this.ctx, 376, 136))
-    this.boxes.push(new Box(this.ctx, 423, 136))
-    this.boxes.push(new Box(this.ctx, 470, 136))
-    this.boxes.push(new Box(this.ctx, 517, 136))
-    this.boxes.push(new Box(this.ctx, 564, 136))
-    this.boxes.push(new Box(this.ctx, 611, 136))
-    this.boxes.push(new Box(this.ctx, 659, 136))
+    this.boxes.push(new Box(this.ctx, 94, 138))
+    this.boxes.push(new Box(this.ctx, 142, 138))
+    this.boxes.push(new Box(this.ctx, 189, 138))
+    this.boxes.push(new Box(this.ctx, 236, 138))
+    this.boxes.push(new Box(this.ctx, 283, 138))
+    this.boxes.push(new Box(this.ctx, 378, 138))
+    this.boxes.push(new Box(this.ctx, 425, 138))
+    this.boxes.push(new Box(this.ctx, 472, 138))
+    this.boxes.push(new Box(this.ctx, 519, 138))
+    this.boxes.push(new Box(this.ctx, 566, 138))
+    this.boxes.push(new Box(this.ctx, 613, 138))
+    this.boxes.push(new Box(this.ctx, 661, 138))
 
-    this.boxes.push(new Box(this.ctx, 92, 184))
-    this.boxes.push(new Box(this.ctx, 281, 184))
-    this.boxes.push(new Box(this.ctx, 376, 184))
-    this.boxes.push(new Box(this.ctx, 564, 184))
-    this.boxes.push(new Box(this.ctx, 659, 184))
+    this.boxes.push(new Box(this.ctx, 94, 186))
+    this.boxes.push(new Box(this.ctx, 283, 186))
+    this.boxes.push(new Box(this.ctx, 378, 186))
+    this.boxes.push(new Box(this.ctx, 566, 186))
+    this.boxes.push(new Box(this.ctx, 661, 186))
 
-    this.boxes.push(new Box(this.ctx, 92, 229))
-    this.boxes.push(new Box(this.ctx, 140, 229))
-    this.boxes.push(new Box(this.ctx, 187, 229))
-    this.boxes.push(new Box(this.ctx, 234, 229))
-    this.boxes.push(new Box(this.ctx, 281, 229))
-    this.boxes.push(new Box(this.ctx, 328, 229))
-    this.boxes.push(new Box(this.ctx, 376, 229))
-    this.boxes.push(new Box(this.ctx, 423, 229))
-    this.boxes.push(new Box(this.ctx, 470, 229))
+    this.boxes.push(new Box(this.ctx, 94, 231))
+    this.boxes.push(new Box(this.ctx, 142, 231))
+    this.boxes.push(new Box(this.ctx, 191, 231))
+    this.boxes.push(new Box(this.ctx, 236, 231))
+    this.boxes.push(new Box(this.ctx, 283, 231))
+    this.boxes.push(new Box(this.ctx, 330, 231))
+    this.boxes.push(new Box(this.ctx, 378, 231))
+    this.boxes.push(new Box(this.ctx, 425, 231))
+    this.boxes.push(new Box(this.ctx, 472, 231))
+    this.boxes.push(new Box(this.ctx, 566, 231))
+    this.boxes.push(new Box(this.ctx, 613, 231))
+    this.boxes.push(new Box(this.ctx, 661, 231))
 
-    this.boxes.push(new Box(this.ctx, 564, 229))
-    this.boxes.push(new Box(this.ctx, 611, 229))
-    this.boxes.push(new Box(this.ctx, 659, 229))
+    this.boxes.push(new Box(this.ctx, 94, 278))
+    this.boxes.push(new Box(this.ctx, 283, 278))
+    this.boxes.push(new Box(this.ctx, 378, 278))
+    this.boxes.push(new Box(this.ctx, 472, 278))
+    this.boxes.push(new Box(this.ctx, 566, 278))
+    this.boxes.push(new Box(this.ctx, 661, 278))
 
-    this.boxes.push(new Box(this.ctx, 92, 276))
-    this.boxes.push(new Box(this.ctx, 281, 276))
-    this.boxes.push(new Box(this.ctx, 376, 276))
-    this.boxes.push(new Box(this.ctx, 470, 276))
-    this.boxes.push(new Box(this.ctx, 564, 276))
-    this.boxes.push(new Box(this.ctx, 659, 276))
+    this.boxes.push(new Box(this.ctx, 94, 323))
+    this.boxes.push(new Box(this.ctx, 142, 323))
+    this.boxes.push(new Box(this.ctx, 191, 323))
+    this.boxes.push(new Box(this.ctx, 236, 323))
+    this.boxes.push(new Box(this.ctx, 330, 323))
+    this.boxes.push(new Box(this.ctx, 378, 323))
+    this.boxes.push(new Box(this.ctx, 425, 323))
+    this.boxes.push(new Box(this.ctx, 472, 323))
+    this.boxes.push(new Box(this.ctx, 519, 323))
+    this.boxes.push(new Box(this.ctx, 566, 323))
+    this.boxes.push(new Box(this.ctx, 613, 323))
 
-    this.boxes.push(new Box(this.ctx, 92, 321))
-    this.boxes.push(new Box(this.ctx, 140, 321))
-    this.boxes.push(new Box(this.ctx, 187, 321))
-    this.boxes.push(new Box(this.ctx, 234, 321))
-    this.boxes.push(new Box(this.ctx, 328, 321))
-    this.boxes.push(new Box(this.ctx, 376, 321))
-    this.boxes.push(new Box(this.ctx, 423, 321))
-    this.boxes.push(new Box(this.ctx, 470, 321))
-    this.boxes.push(new Box(this.ctx, 517, 321))
-    this.boxes.push(new Box(this.ctx, 564, 321))
-    this.boxes.push(new Box(this.ctx, 611, 321))
+    this.boxes.push(new Box(this.ctx, 94, 370))
+    this.boxes.push(new Box(this.ctx, 191, 370))
+    this.boxes.push(new Box(this.ctx, 283, 370))
+    this.boxes.push(new Box(this.ctx, 378, 370))
+    this.boxes.push(new Box(this.ctx, 472, 370))
+    this.boxes.push(new Box(this.ctx, 566, 370))
+    this.boxes.push(new Box(this.ctx, 661, 370))
 
-    this.boxes.push(new Box(this.ctx, 92, 368))
-    this.boxes.push(new Box(this.ctx, 187, 368))
-    this.boxes.push(new Box(this.ctx, 281, 368))
-    this.boxes.push(new Box(this.ctx, 376, 368))
-    this.boxes.push(new Box(this.ctx, 470, 368))
-    this.boxes.push(new Box(this.ctx, 564, 368))
-    this.boxes.push(new Box(this.ctx, 659, 368))
+    this.boxes.push(new Box(this.ctx, 94, 415))
+    this.boxes.push(new Box(this.ctx, 142, 415))
+    this.boxes.push(new Box(this.ctx, 191, 415))
+    this.boxes.push(new Box(this.ctx, 236, 415))
+    this.boxes.push(new Box(this.ctx, 283, 415))
+    this.boxes.push(new Box(this.ctx, 330, 415))
+    this.boxes.push(new Box(this.ctx, 378, 415))
+    this.boxes.push(new Box(this.ctx, 425, 415))
+    this.boxes.push(new Box(this.ctx, 519, 415))
+    this.boxes.push(new Box(this.ctx, 566, 415))
+    this.boxes.push(new Box(this.ctx, 613, 415))
+    this.boxes.push(new Box(this.ctx, 661, 415))
 
-    this.boxes.push(new Box(this.ctx, 92, 413))
-    this.boxes.push(new Box(this.ctx, 140, 413))
-    this.boxes.push(new Box(this.ctx, 187, 413))
-    this.boxes.push(new Box(this.ctx, 234, 413))
-    this.boxes.push(new Box(this.ctx, 281, 413))
-    this.boxes.push(new Box(this.ctx, 328, 413))
-    this.boxes.push(new Box(this.ctx, 376, 413))
-    this.boxes.push(new Box(this.ctx, 423, 413))
-    this.boxes.push(new Box(this.ctx, 517, 413))
-    this.boxes.push(new Box(this.ctx, 564, 413))
-    this.boxes.push(new Box(this.ctx, 611, 413))
-    this.boxes.push(new Box(this.ctx, 659, 413))
+    this.boxes.push(new Box(this.ctx, 191, 462))
+    this.boxes.push(new Box(this.ctx, 283, 462))
+    this.boxes.push(new Box(this.ctx, 378, 462))
+    this.boxes.push(new Box(this.ctx, 472, 462))
+    this.boxes.push(new Box(this.ctx, 566, 462))
 
-    this.boxes.push(new Box(this.ctx, 187, 460))
-    this.boxes.push(new Box(this.ctx, 281, 460))
-    this.boxes.push(new Box(this.ctx, 376, 460))
-    this.boxes.push(new Box(this.ctx, 470, 460))
-    this.boxes.push(new Box(this.ctx, 564, 460))
-
-    this.boxes.push(new Box(this.ctx, 187, 505))
-    this.boxes.push(new Box(this.ctx, 234, 505))
-    this.boxes.push(new Box(this.ctx, 281, 505))
-    this.boxes.push(new Box(this.ctx, 328, 505))
-    this.boxes.push(new Box(this.ctx, 376, 505))
-    this.boxes.push(new Box(this.ctx, 423, 505))
-    this.boxes.push(new Box(this.ctx, 470, 505))
-    this.boxes.push(new Box(this.ctx, 517, 505))
-    this.boxes.push(new Box(this.ctx, 564, 505))
+    this.boxes.push(new Box(this.ctx, 191, 507))
+    this.boxes.push(new Box(this.ctx, 236, 507))
+    this.boxes.push(new Box(this.ctx, 283, 507))
+    this.boxes.push(new Box(this.ctx, 330, 507))
+    this.boxes.push(new Box(this.ctx, 378, 507))
+    this.boxes.push(new Box(this.ctx, 425, 507))
+    this.boxes.push(new Box(this.ctx, 472, 507))
+    this.boxes.push(new Box(this.ctx, 519, 507))
+    this.boxes.push(new Box(this.ctx, 566, 507))
     
   }
+
+  /*
+  drawTimer() {
+    this.ctx.clearRect(0, 0, 100, 100)
+    this.ctx.font = '300 Arial'
+    this.ctx.fillStyle = '#000'
+    this.ctx.fillText(this.timeRemaining, 10, 50)
+  }
+
+  updateTimer() {
+    this.timeRemaining--
+
+    if (this.timeRemaining <= 0) {
+      clearInterval(this.timer)
+      alert('TIEMPO AGOTADO')
+    }
+
+    this.drawTimer()
+  }
+  */
 
   onKeyEvent(event) {
     this.bomberman.onKeyEvent(event)
@@ -163,6 +190,7 @@ class Game {
   start() {
     if (!this.drawIntervalId) {
       this.drawIntervalId = setInterval(() => {
+        //this.drawTimer()
         this.clear()
         this.move()
         this.draw()
@@ -182,6 +210,8 @@ class Game {
       } else if (obstacle.collidesWithD(this.bomberman)) {
         this.bomberman.y = obstacle.y + obstacle.h
       }
+
+      // this.explosions = this.explosions.filter((explosion) => !obstacle.collidesWith(explosion))
     })
 
     this.boxes.forEach((box) => {
@@ -194,7 +224,48 @@ class Game {
         } else if (box.collidesWithD(this.bomberman)) {
           this.bomberman.y = box.y + box.h
         }
-      })
+
+        this.bomberman.bombs.forEach((bomb) => {
+          this.boxes = this.boxes.filter((box) => !bomb.collidesWith(box))
+          if (bomb.collidesWith(this.bomberman)) {
+            this.bomberman.isDead = true
+            
+          }
+        })
+    })
+
+    this.bomberman.bombs = this.bomberman.bombs.filter(bomb => {
+      if (bomb.isExploited) {
+        this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y))
+        this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
+        this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
+        this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
+        this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 40))
+
+        /*
+        if (bomb.x - 40 < WALL_X_LEFT) {
+          this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 40))
+        } else if (bomb.x + bomb.w + 40 > WALL_X_RIGHT) {
+          this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 40))
+        } else if (bomb.y - 40 < WALL_Y_UP) {
+          this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
+        } else if (bomb.y + bomb.h + 40 > WALL_Y_DOWN) {
+          this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
+        }
+        */
+
+        return false
+      }
+      return true
+    })
       
   }
 
@@ -212,9 +283,22 @@ class Game {
     this.bomberman.draw()
     this.obstacles.forEach(obstacle => obstacle.draw())
     this.boxes.forEach(box => box.draw())
+    this.explosions.forEach(explosion => explosion.draw())
+    this.clearExplosion()
   }
 
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
   }
+
+  clearExplosion() {
+    this.explosions = this.explosions.filter(explosion => explosion.timeExplosion <= 100)
+  }
+
+  bombermanIsDead() {
+    if (this.bomberman.isDead) {
+      this.stop()
+    }
+  }
+
 }

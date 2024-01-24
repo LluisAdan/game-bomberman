@@ -21,7 +21,7 @@ class Bomb {
 
         this.animationTick = 0
 
-        this.explosions = []
+        this.isExploited = false
     }
 
     draw() {
@@ -40,16 +40,6 @@ class Bomb {
             )
             this.animate()
         } 
-
-        if (this.explosions.length > 0) {
-            this.explosions.forEach(explosion => explosion.draw())
-            console.log(this.explosions)
-        }
-
-    }
-
-    exploit() {
-        this.explosions.push(new Explosion(this.ctx, this.x, this.w)) 
     }
 
     animate() {
@@ -63,10 +53,6 @@ class Bomb {
             if (this.sprite.horizontalFrameIndex < 0) {
                 this.sprite.horizontalFrameIndex = 2
             }
-    }
-
-    clear() {
-        this.explosions = this.explosions.filter((explosion) => explosion.timeExplosion <= 60)
     }
 
     collidesWithL(element) {
@@ -102,6 +88,19 @@ class Bomb {
             element.y >= this.y + this.h - 5 &&
             element.x + element.w > this.x &&
             element.x < this.x + this.w
+        )
+    }
+
+    collidesWith(element) {
+        if (!this.isExploited) {
+            return false
+        }
+
+        return (
+            this.x + this.w > element.x &&
+            this.x < element.x + element.w + 12 &&
+            this.y + this.h > element.h &&
+            this.y < element.y + element.h + 12
         )
     }
 } 

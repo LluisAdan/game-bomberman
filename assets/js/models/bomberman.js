@@ -10,16 +10,28 @@ class Bomberman {
         this.w = BOMBERMAN_W
         this.h = BOMBERMAN_H
 
-        this.sprite = new Image()
-        this.sprite.src = '/assets/img/bomberman/all-bomberman.png'
-        this.sprite.verticalFrames = 4
-        this.sprite.verticalFrameIndex = 0
-        this.sprite.horizontalFrames = 3
-        this.sprite.horizontalFrameIndex = 0
-        this.sprite.onload = () => {
-            this.sprite.isReady = true
-            this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
-            this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
+        if (this.isDead) {
+            this.sprite = new Image()
+            this.sprite.src = '/assets/img/bomberman/bomberman-dead.png'
+            this.sprite.horizontalFrames = 6
+            this.sprite.horizontalFrameIndex = 0
+            this.sprite.onload = () => {
+                this.sprite.isReady = true
+                this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
+            }
+
+        } else {
+            this.sprite = new Image()
+            this.sprite.src = '/assets/img/bomberman/all-bomberman.png'
+            this.sprite.verticalFrames = 4
+            this.sprite.verticalFrameIndex = 0
+            this.sprite.horizontalFrames = 3
+            this.sprite.horizontalFrameIndex = 0
+            this.sprite.onload = () => {
+                this.sprite.isReady = true
+                this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
+                this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
+            }
         }
 
         this.movements = {
@@ -29,8 +41,8 @@ class Bomberman {
             down: false
         }
 
+        this.isDead = false
         this.animationTick = 0
-
         this.bombs = []
 
     }
@@ -57,11 +69,6 @@ class Bomberman {
     }
 
     move() {
-        if (this.stop) {
-            return
-        }
-
-
         if (this.movements.right) {
             this.x += this.vx
         } else if (this.movements.left) {
@@ -96,70 +103,76 @@ class Bomberman {
                 this.w,
                 this.h
             )
-
+            
             this.animate()
         }
 
         this.bombs.forEach(bomb => {
             bomb.draw()
             bomb.timeBomb++
-
         })
 
-        if (this.timeBomb >= 179) {
-            bomb.exploit()
-        }
-
         this.clear()
-
         this.checkCollision()
     }
 
     animate() {
         this.animationTick++
 
-        if (this.movements.right && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
-            this.animationTick = 0
-            this.sprite.horizontalFrameIndex++
-            this.sprite.verticalFrameIndex = 3
-
-            if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
-                this.sprite.horizontalFrameIndex = 0
+        if (this.isDead) {
+            if (this.animationTick >= 50) {
+                this.animationTick = 0
+                this.sprite.horizontalFrameIndex++
             }
 
-        } else if (this.movements.left && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
-            this.animationTick = 0
-            this.sprite.horizontalFrameIndex++
-            this.sprite.verticalFrameIndex = 2
-
-            if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
-                this.sprite.horizontalFrameIndex = 0
+            if (this.animationTick === 100) {
+                this.animationTick = 0
             }
 
-        } else if (this.movements.up  && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
-            this.animationTick = 0
-            this.sprite.horizontalFrameIndex++
-            this.sprite.verticalFrameIndex = 0
-
-            if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
+        } else {
+            if (this.movements.right && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
+                this.animationTick = 0
+                this.sprite.horizontalFrameIndex++
+                this.sprite.verticalFrameIndex = 3
+    
+                if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
+                    this.sprite.horizontalFrameIndex = 0
+                }
+    
+            } else if (this.movements.left && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
+                this.animationTick = 0
+                this.sprite.horizontalFrameIndex++
+                this.sprite.verticalFrameIndex = 2
+    
+                if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
+                    this.sprite.horizontalFrameIndex = 0
+                }
+    
+            } else if (this.movements.up  && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
+                this.animationTick = 0
+                this.sprite.horizontalFrameIndex++
+                this.sprite.verticalFrameIndex = 0
+    
+                if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
+                    this.sprite.horizontalFrameIndex = 0
+                }
+    
+            } else if (this.movements.down  && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
+                this.animationTick = 0
+                this.sprite.horizontalFrameIndex++
+                this.sprite.verticalFrameIndex = 1
+    
+                if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
+                    this.sprite.horizontalFrameIndex = 0
+                }
+            } else if (!this.movements.right && !this.movements.left && !this.movements.up && !this.movements.down) {
                 this.sprite.horizontalFrameIndex = 0
             }
-
-        } else if (this.movements.down  && this.animationTick >= BOMBERMAN_RUN_ANIMATION_TICK) {
-            this.animationTick = 0
-            this.sprite.horizontalFrameIndex++
-            this.sprite.verticalFrameIndex = 1
-
-            if (this.sprite.horizontalFrameIndex > this.sprite.horizontalFrames - 1) {
-                this.sprite.horizontalFrameIndex = 0
+    
+            if (this.animationTick === 100) {
+                this.animationTick = 0
             }
-        } else if (!this.movements.right && !this.movements.left && !this.movements.up && !this.movements.down) {
-            this.sprite.horizontalFrameIndex = 0
-        }
-
-        if (this.animationTick === 100) {
-            this.animationTick = 0
-        }
+        } 
     }
 
     bombing() {
@@ -169,7 +182,15 @@ class Bomberman {
     }
 
     clear() {
-        this.bombs = this.bombs.filter((bomb) => bomb.timeBomb <= 180)
+        this.bombs = this.bombs.filter(bomb => {
+            if (bomb.timeBomb <= 180) {
+                return true
+            } else {
+                bomb.sprite.horizontalFrames = 7
+                bomb.isExploited = true
+            }
+            return true
+        })
     }
 
     checkCollision() {
