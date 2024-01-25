@@ -23,6 +23,11 @@ const BOMBERMAN_W = 17 * 1.8
 const BOMBERMAN_RUN_ANIMATION_TICK = 10
 const BOMBERMAN_SPEED_MOVE = 3.5
 
+const ENEMY_H = 23 * 1.8
+const ENEMY_W = 17 * 1.8
+const ENEMY_RUN_ANIMATION_TICK = 10
+const ENEMY_SPEED_MOVE = 3.5
+
 const BOMB = 16 * 2.3
 const EXPLOSION = 40
 

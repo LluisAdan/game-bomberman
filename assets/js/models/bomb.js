@@ -91,16 +91,22 @@ class Bomb {
         )
     }
 
-    collidesWith(element) {
+    collidesWith(e) {
         if (!this.isExploited) {
             return false
         }
 
-        return (
-            this.x + this.w > element.x &&
-            this.x < element.x + element.w + 12 &&
-            this.y + this.h > element.h &&
-            this.y < element.y + element.h + 12
-        )
+        const bombCenterX = this.x + this.w / 2
+        const bombCenterY = this.y + this.h / 2
+        const eCenterX = e.x + e.w / 2
+        const eCenterY = e.y + e.h / 2
+
+        const xDistance = Math.abs(eCenterX - bombCenterX - 5)
+        const yDistance = Math.abs(eCenterY - bombCenterY - 5)
+
+        const colX = xDistance < this.h * 2 && yDistance < this.h
+        const colY = yDistance < this.w * 2 && xDistance < this.w
+
+        return colX || colY
     }
 } 

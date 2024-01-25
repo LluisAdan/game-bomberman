@@ -8,11 +8,6 @@ class Game {
     this.fps = FPS;
     this.drawIntervalId = undefined;
 
-    /*
-    this.timeRemaining = 60
-    this.timer = setInterval(() => this.updateTimer(), 1000)
-    */
-
     this.background = new Background(this.ctx);
 
     this.explosions = []
@@ -163,26 +158,6 @@ class Game {
     
   }
 
-  /*
-  drawTimer() {
-    this.ctx.clearRect(0, 0, 100, 100)
-    this.ctx.font = '300 Arial'
-    this.ctx.fillStyle = '#000'
-    this.ctx.fillText(this.timeRemaining, 10, 50)
-  }
-
-  updateTimer() {
-    this.timeRemaining--
-
-    if (this.timeRemaining <= 0) {
-      clearInterval(this.timer)
-      alert('TIEMPO AGOTADO')
-    }
-
-    this.drawTimer()
-  }
-  */
-
   onKeyEvent(event) {
     this.bomberman.onKeyEvent(event)
   }
@@ -190,7 +165,6 @@ class Game {
   start() {
     if (!this.drawIntervalId) {
       this.drawIntervalId = setInterval(() => {
-        //this.drawTimer()
         this.clear()
         this.move()
         this.draw()
@@ -210,8 +184,6 @@ class Game {
       } else if (obstacle.collidesWithD(this.bomberman)) {
         this.bomberman.y = obstacle.y + obstacle.h
       }
-
-      // this.explosions = this.explosions.filter((explosion) => !obstacle.collidesWith(explosion))
     })
 
     this.boxes.forEach((box) => {
@@ -229,7 +201,6 @@ class Game {
           this.boxes = this.boxes.filter((box) => !bomb.collidesWith(box))
           if (bomb.collidesWith(this.bomberman)) {
             this.bomberman.isDead = true
-            
           }
         })
     })
@@ -237,25 +208,41 @@ class Game {
     this.bomberman.bombs = this.bomberman.bombs.filter(bomb => {
       if (bomb.isExploited) {
         this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y))
-        this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
-        this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
-        this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
-        this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 40))
+        this.explosions.push(new Explosion(this.ctx, bomb.x + 45, bomb.y))
+        this.explosions.push(new Explosion(this.ctx, bomb.x - 45, bomb.y))
+        this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 45))
+        this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 45))
+
+        this.obstacles.forEach((obstacle) => {
+          this.explosions = this.explosions.filter((explosion) => {
+            return (
+              !obstacle.collidesWith(explosion)
+              /*
+              explosion.x >= WALL_X_LEFT &&
+              explosion.x + explosion.w <= WALL_X_RIGHT &&
+              explosion.y >= WALL_Y_UP &&
+              explosion.y + explosion.h <= WALL_Y_DOWN
+              */
+            )
+          })
+        })
+
+
 
         /*
-        if (bomb.x - 40 < WALL_X_LEFT) {
+        if (bomb.x - 45 < WALL_X_LEFT) {
           this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
           this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
           this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 40))
-        } else if (bomb.x + bomb.w + 40 > WALL_X_RIGHT) {
+        } else if (bomb.x + bomb.w + 45 > WALL_X_RIGHT) {
           this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
           this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
           this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 40))
-        } else if (bomb.y - 40 < WALL_Y_UP) {
+        } else if (bomb.y - 45 < WALL_Y_UP) {
           this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
           this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
           this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
-        } else if (bomb.y + bomb.h + 40 > WALL_Y_DOWN) {
+        } else if (bomb.y + bomb.h + 45 > WALL_Y_DOWN) {
           this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
           this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
           this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
