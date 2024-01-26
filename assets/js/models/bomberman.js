@@ -85,7 +85,7 @@ class Bomberman {
     draw() {
         if (this.isDead) {
             if (this.sprite.isReady) {
-                this.ctx.drawImage(
+                this.ctx.drawImage( 
                     this.sprite,
                     this.sprite.horizontalFrameIndex * this.sprite.frameWidth,
                     this.sprite.verticalFrameIndex * this.sprite.frameHeight,
@@ -99,7 +99,7 @@ class Bomberman {
                 this.animateDead()
             }
 
-        } else if (!this.isDead) {
+        } else {
             if (this.sprite.isReady) {
                 this.ctx.drawImage(
                     this.sprite,
@@ -114,12 +114,12 @@ class Bomberman {
                 )
                 this.animate()
             }
-        }
 
-        this.bombs.forEach(bomb => {
-            bomb.draw()
-            bomb.timeBomb++
-        })
+            this.bombs.forEach(bomb => {
+                bomb.draw()
+                bomb.timeBomb++
+            })
+        }
 
         this.clear()
         this.checkCollision()
@@ -173,26 +173,28 @@ class Bomberman {
     }
 
     animateDead() {
-        if (this.isDead) {
+
+        if (this.isDead && !this.sprite.dead) {
             this.sprite = new Image()
+            this.sprite.dead = true
             this.sprite.src = '/assets/img/bomberman/bomberman-dead.png'
             this.sprite.horizontalFrames = 6
             this.sprite.horizontalFrameIndex = 0
+            this.sprite.verticalFrames = 1
+            this.sprite.verticalFrameIndex = 0
             this.sprite.onload = () => {
                 this.sprite.isReady = true
                 this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
+                this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
             }
         }
         
         this.animationTick++
-
-        if (this.animationTick >= 50) {
-            this.animationTick = 0
-            this.sprite.horizontalFrameIndex++
-        }
-
-        if (this.animationTick === 100) {
-            this.animationTick = 0
+        if (this.sprite.horizontalFrameIndex < 5) {
+            if (this.animationTick >= 30 ) {
+                this.animationTick = 0
+                this.sprite.horizontalFrameIndex++
+            }
         }
     }
 

@@ -16,7 +16,7 @@ const WALL_Y_UP = 30
 const WALL_Y_DOWN = 505
 
 const OBSTACLE_W = 45
-const OBSTACLE_H = 30
+const OBSTACLE_H = 25
 
 const BOMBERMAN_H = 23 * 1.8
 const BOMBERMAN_W = 17 * 1.8

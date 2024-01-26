@@ -12,6 +12,7 @@ class Game {
 
     this.explosions = []
     this.timeExplosion = 0
+    this.timeGameOver = 0
 
     this.obstacles = []
     this.obstacles.push(new Obstacle(this.ctx, 142, 95))
@@ -259,6 +260,7 @@ class Game {
   stop() {
     clearInterval(this.drawIntervalId)
     this.drawIntervalId = undefined
+    alert('GAME OVER')
   }
 
   move() {
@@ -272,6 +274,7 @@ class Game {
     this.boxes.forEach(box => box.draw())
     this.explosions.forEach(explosion => explosion.draw())
     this.clearExplosion()
+    this.gameOver()
   }
 
   clear() {
@@ -282,9 +285,13 @@ class Game {
     this.explosions = this.explosions.filter(explosion => explosion.timeExplosion <= 100)
   }
 
-  bombermanIsDead() {
+  gameOver() {
     if (this.bomberman.isDead) {
-      this.stop()
+      this.timeGameOver++
+      if (this.timeGameOver >= 250) {
+        this.stop()
+      }
+
     }
   }
 
