@@ -27,7 +27,7 @@ class Bomberman {
                 this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
             }
         }
-
+        
         this.movements = {
             right: false,
             left: false,
@@ -79,7 +79,6 @@ class Bomberman {
                 this.y = WALL_Y_DOWN
             }
         }
-
     }
 
     draw() {
@@ -173,7 +172,7 @@ class Bomberman {
     }
 
     animateDead() {
-
+    
         if (this.isDead && !this.sprite.dead) {
             this.sprite = new Image()
             this.sprite.dead = true
@@ -191,7 +190,7 @@ class Bomberman {
         
         this.animationTick++
         if (this.sprite.horizontalFrameIndex < 5) {
-            if (this.animationTick >= 30 ) {
+            if (this.animationTick >= 25) {
                 this.animationTick = 0
                 this.sprite.horizontalFrameIndex++
             }

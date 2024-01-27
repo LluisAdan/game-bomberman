@@ -13,7 +13,7 @@ const KEY_BOMB = 32
 const WALL_X_RIGHT = 670
 const WALL_X_LEFT = 95
 const WALL_Y_UP = 30
-const WALL_Y_DOWN = 505
+const WALL_Y_DOWN = 510
 
 const OBSTACLE_W = 45
 const OBSTACLE_H = 25

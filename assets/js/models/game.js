@@ -13,6 +13,14 @@ class Game {
     this.explosions = []
     this.timeExplosion = 0
     this.timeGameOver = 0
+    this.timeWin = 0
+
+    this.bomberman = new Bomberman(this.ctx, 670, 505)
+
+    this.enemies = []
+    this.enemies.push(new Enemy(this.ctx, 104, 45))
+    this.enemies.push(new Enemy(this.ctx, 670, 45))
+    this.enemies.push(new Enemy(this.ctx, 104, 505))
 
     this.obstacles = []
     this.obstacles.push(new Obstacle(this.ctx, 142, 95))
@@ -49,8 +57,6 @@ class Game {
     this.obstacles.push(new Obstacle(this.ctx, 425, 464))
     this.obstacles.push(new Obstacle(this.ctx, 519, 464))
     this.obstacles.push(new Obstacle(this.ctx, 613, 464))
-
-    this.bomberman = new Bomberman(this.ctx, 670, 505)
 
     this.boxes = []
     this.boxes.push(new Box(this.ctx, 189, 44))
@@ -185,6 +191,18 @@ class Game {
       } else if (obstacle.collidesWithD(this.bomberman)) {
         this.bomberman.y = obstacle.y + obstacle.h
       }
+
+      this.enemies.forEach((enemy) => {
+        if (obstacle.collidesWithL(enemy)) {
+          enemy.x = obstacle.x - enemy.w
+        } else if (obstacle.collidesWithR(enemy)) {
+          enemy.x = obstacle.x + obstacle.w
+        } else if (obstacle.collidesWithU(enemy)) {
+          enemy.y = obstacle.y - enemy.h
+        } else if (obstacle.collidesWithD(enemy)) {
+          enemy.y = obstacle.y + obstacle.h
+        }
+      })
     })
 
     this.boxes.forEach((box) => {
@@ -203,7 +221,36 @@ class Game {
           if (bomb.collidesWith(this.bomberman)) {
             this.bomberman.isDead = true
           }
+
+          this.enemies.forEach(enemy => {
+            if (bomb.collidesWith(enemy)) {
+              enemy.isDead = true
+            }
+          })
         })
+
+        this.enemies.forEach((enemy) => {
+          if (box.collidesWithL(enemy)) {
+            enemy.x = box.x - enemy.w
+          } else if (box.collidesWithR(enemy)) {
+            enemy.x = box.x + box.w
+          } else if (box.collidesWithU(enemy)) {
+            enemy.y = box.y - enemy.h
+          } else if (box.collidesWithD(enemy)) {
+            enemy.y = box.y + box.h
+          }
+
+          enemy.bombs.forEach((bomb) => {
+            this.boxes = this.boxes.filter((box) => !bomb.collidesWith(box))
+            if (bomb.collidesWith(enemy)) {
+              enemy.isDead = true
+            }
+            if (bomb.collidesWith(this.bomberman)) {
+              this.bomberman.isDead = true
+            }
+          })
+        })
+        
     })
 
     this.bomberman.bombs = this.bomberman.bombs.filter(bomb => {
@@ -214,67 +261,82 @@ class Game {
         this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 45))
         this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 45))
 
-        this.obstacles.forEach((obstacle) => {
-          this.explosions = this.explosions.filter((explosion) => {
-            return (
-              !obstacle.collidesWith(explosion)
-              /*
-              explosion.x >= WALL_X_LEFT &&
-              explosion.x + explosion.w <= WALL_X_RIGHT &&
-              explosion.y >= WALL_Y_UP &&
-              explosion.y + explosion.h <= WALL_Y_DOWN
-              */
-            )
-          })
-        })
-
-
-
         /*
-        if (bomb.x - 45 < WALL_X_LEFT) {
-          this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
-          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
-          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 40))
-        } else if (bomb.x + bomb.w + 45 > WALL_X_RIGHT) {
-          this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
-          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
-          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 40))
-        } else if (bomb.y - 45 < WALL_Y_UP) {
-          this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
-          this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
-          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
-        } else if (bomb.y + bomb.h + 45 > WALL_Y_DOWN) {
-          this.explosions.push(new Explosion(this.ctx, bomb.x + 40, bomb.y))
-          this.explosions.push(new Explosion(this.ctx, bomb.x - 40, bomb.y))
-          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 40))
-        }
+        this.obstacles.forEach((obstacle) => {
+          this.explosions = this.explosions.filter(explosion => !obstacle.collidesWith(explosion))
+        })
         */
 
         return false
       }
       return true
     })
-      
+
+    this.enemies.forEach((enemy) => {
+      enemy.bombs = enemy.bombs.filter(bomb => {
+        if (bomb.isExploited) {
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x + 45, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x - 45, bomb.y))
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 45))
+          this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 45))
+          
+          /*
+          this.obstacles.forEach((obstacle) => {
+            this.explosions = this.explosions.filter(explosion => !obstacle.collidesWith(explosion))
+          })
+
+          */
+          
+          return false
+        }
+        return true
+      })
+    })
+
   }
 
   stop() {
     clearInterval(this.drawIntervalId)
     this.drawIntervalId = undefined
-    alert('GAME OVER')
   }
 
   move() {
     this.bomberman.move()
+    this.enemies.forEach(enemy => enemy.move())
   }
 
   draw() {
     this.background.draw()
     this.bomberman.draw()
+    this.drawColorEnemies()
+    this.enemies.forEach(enemy => enemy.draw())
     this.obstacles.forEach(obstacle => obstacle.draw())
     this.boxes.forEach(box => box.draw())
     this.explosions.forEach(explosion => explosion.draw())
     this.clearExplosion()
+    this.win()
     this.gameOver()
+  }
+
+  drawColorEnemies() {
+    this.enemies.forEach(enemy => {
+      if (enemy[1]) {
+        if (!this.isDead) {
+          this.sprite = new Image()
+          this.sprite.src = '/assets/img/bomberman/all-bomberman.png'
+          this.sprite.verticalFrames = 4
+          this.sprite.verticalFrameIndex = 0
+          this.sprite.horizontalFrames = 3
+          this.sprite.horizontalFrameIndex = 0
+          this.sprite.onload = () => {
+              this.sprite.isReady = true
+              this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
+              this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
+          }
+        }
+      }
+    })
   }
 
   clear() {
@@ -288,11 +350,39 @@ class Game {
   gameOver() {
     if (this.bomberman.isDead) {
       this.timeGameOver++
-      if (this.timeGameOver >= 250) {
+      if (this.timeGameOver >= 200) {
         this.stop()
-      }
 
+        const canvasPanel = document.getElementById('main-canvas')
+        canvasPanel.classList.add('hidden')
+
+        const gameOverPanel = document.getElementById('game-over-panel')
+        gameOverPanel.classList.remove('hidden')
+      }
     }
   }
 
+  win() {
+    let enemiesDead = 0
+    if (!this.bomberman.isDead) {
+      this.enemies.forEach(enemy => {
+        if (enemy.isDead === true) {
+          enemiesDead++
+        }  
+      })
+    }
+
+    if (enemiesDead === 3) {
+      this.timeWin++
+      if (this.timeWin >= 200) {
+        this.stop()
+
+        const canvasPanel = document.getElementById('main-canvas')
+        canvasPanel.classList.add('hidden')
+
+        const gameOverPanel = document.getElementById('win-panel')
+        gameOverPanel.classList.remove('hidden')
+      }
+    }
+  }
 }
