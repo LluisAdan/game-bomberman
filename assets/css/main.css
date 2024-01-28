@@ -27,8 +27,18 @@
 
 #start-panel {
     background-image: url('/assets/img/panels/start-bg.png');
+    border: 2px solid black;
 }
 
+#btns-start {
+    width: 250px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 150px;
+
+}
 h1 {
     font-family: "Sigmar One";
     color: black;
@@ -51,26 +61,67 @@ h1 {
     font-size: 20px;
 }
 
-#select-map {
+#btn-start-game {
+    color: rgb(90, 8, 8);
+}
+
+#map-panel {
     background-image: url('/assets/img/panels/select-map/select-map-bg.png');
 }
 
-#maps {
-    border: 1px solid black;
+#section-maps {
+    border: 2px solid black;
     background: rgb(107, 63, 110);
     width: 450px;
     height: 550px;
     margin: 20px;
     border-radius: 10px;
-
 }
 
-img {
-    background-size: cover;  
+.sel-map {
+    background-size: cover;
+    border: 3px solid black;  
+    border-radius: 10px;
     width: 180px;
     height: 150px;
     margin: 20px;
     margin-bottom: 10px;
+}
+
+.section {
+    width: 550px;
+    height: 100px;
+    margin-top: 40px;
+}
+
+#img-pjs {
+    margin: 4px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.select-pj {
+    width: 34px;
+    height: 46px;
+    margin: 0 20px;
+}
+
+#difficult {
+    width: 550px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-difficult {
+    font-family: "Sigmar One";
+    background: none;
+    border: none;
+    color: rgb(96, 17, 17);
+    font-size: 30px;
+    margin: 0 15px;
 }
 
 .btn-gameOver {
@@ -82,7 +133,6 @@ img {
     color: white;
     margin-bottom: 80px;
 }
-
 
 #game-over-panel {
     background-image: url('/assets/img/panels/game-over-bg.png');
