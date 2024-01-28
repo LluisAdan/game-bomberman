@@ -15,7 +15,7 @@ const WALL_X_LEFT = 95
 const WALL_Y_UP = 30
 const WALL_Y_DOWN = 510
 
-const OBSTACLE_W = 45
+const OBSTACLE_W = 35
 const OBSTACLE_H = 25
 
 const BOMBERMAN_H = 23 * 1.8
@@ -26,9 +26,12 @@ const BOMBERMAN_SPEED_MOVE = 3.5
 const ENEMY_H = 23 * 1.8
 const ENEMY_W = 17 * 1.8
 const ENEMY_RUN_ANIMATION_TICK = 10
-const ENEMY_SPEED_MOVE = 3.5
+const ENEMY_SPEED_MOVE = 2.5
 
 const BOMB = 16 * 2.3
 const EXPLOSION = 40
 
 const BOX = 45
+
+const SKILL_W = 16 * 2.5
+const SKILL_H = 16 * 2.5

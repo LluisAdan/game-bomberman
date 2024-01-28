@@ -13,6 +13,7 @@ class Bomberman {
         this.isDead = false
         this.animationTick = 0
         this.bombs = []
+        this.countBomb = 1
 
         if (!this.isDead) {
             this.sprite = new Image()
@@ -27,7 +28,7 @@ class Bomberman {
                 this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
             }
         }
-        
+
         this.movements = {
             right: false,
             left: false,
@@ -198,7 +199,7 @@ class Bomberman {
     }
 
     bombing() {
-        if (this.bombs.length < 1) {
+        if (this.bombs.length < this.countBomb) {
         this.bombs.push(new Bomb(this.ctx, this.x - 4, this.y))
         }
     }
@@ -234,4 +235,57 @@ class Bomberman {
             })
         }
     }
+
+    collidesWith(e) {
+
+        const bombermanCenterX = this.x + this.w / 2
+        const bombermanCenterY = this.y + this.h / 2
+        const eCenterX = e.x + e.w / 2
+        const eCenterY = e.y + e.h / 2
+
+        const xDistance = Math.abs(eCenterX - bombermanCenterX - 5)
+        const yDistance = Math.abs(eCenterY - bombermanCenterY - 5)
+
+        const colX = xDistance < this.h && yDistance < this.h
+        const colY = yDistance < this.w && xDistance < this.w
+
+        return colX || colY
+    }
+
+    collidesWithL(element) {
+        return (
+            element.x + element.w >= this.x &&
+            element.x + element.w <= this.x + 5 &&
+            element.y + element.h > this.y &&
+            element.y < this.y + this.h
+        )
+    }
+
+    collidesWithR(element) {
+        return (
+            element.x <= this.x + this.w &&
+            element.x >= this.x + this.w - 5 &&
+            element.y + element.h > this.y &&
+            element.y < this.y + this.h 
+        )
+    }
+
+    collidesWithU(element) {
+        return (
+            element.y + element.h >= this.y &&
+            element.y + element.h <= this.y + 5 &&
+            element.x + element.w > this.x &&
+            element.x < this.x + this.w
+        )
+    }
+
+    collidesWithD(element) {
+        return (
+            element.y <= this.y + this.h &&
+            element.y >= this.y + this.h - 5 &&
+            element.x + element.w > this.x &&
+            element.x < this.x + this.w
+        )
+    }
+
 }

@@ -16,6 +16,7 @@ class Box {
             this.sprite.isReady = true
         }
 
+        this.isEliminate = false
     }
 
     draw() {
@@ -68,39 +69,6 @@ class Box {
             element.x + element.w > this.x &&
             element.x < this.x + this.w
         )
-    }
-
-    velocitySkill() {
-        this.sprite = new Image()
-        this.sprite.src = 'assets/img/skills/skills.png'
-        this.sprite.horizontalFrames = 5
-        this.sprite.horizontalFrameIndex = 0
-        this.sprite.onload = () => {
-            this.sprite.isReady = true
-            this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
-        }
-    }
-
-    bombSkill() {
-        this.sprite = new Image()
-        this.sprite.src = 'assets/img/skills/skills.png'
-        this.sprite.horizontalFrames = 5
-        this.sprite.horizontalFrameIndex = 2
-        this.sprite.onload = () => {
-            this.sprite.isReady = true
-            this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
-        }
-    }
-
-    deathSkill() {
-        this.sprite = new Image()
-        this.sprite.src = 'assets/img/skills/skills.png'
-        this.sprite.horizontalFrames = 5
-        this.sprite.horizontalFrameIndex = 3
-        this.sprite.onload = () => {
-            this.sprite.isReady = true
-            this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
-        }
     }
 
 }

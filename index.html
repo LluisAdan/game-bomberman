@@ -16,6 +16,19 @@
     <div class="main-container">
         <div id="start-panel" class="hidden container d-flex flex-column justify-content-center align-items-center">
             <button id="btn-start-game" class="btn">START</button>
+            <button id="choose-bg" class="btn-secondary">SELECT MAP</button>
+            <button id="choose-pj" class="btn-secondary">SELECT PJ</button>
+        </div>
+
+        <div id="select-map" class="hidden container">
+            <div id="maps">
+                <img src="/assets/img/panels/select-map/maps/bg-1.png" />
+                <img src="/assets/img/panels/select-map/maps/bg-2.png" />
+                <img src="/assets/img/panels/select-map/maps/bg-3.png" />
+                <img src="/assets/img/panels/select-map/maps/bg-4.png" />
+                <img src="/assets/img/panels/select-map/maps/bg-5.png" />
+                <img src="/assets/img/panels/select-map/maps/bg-6.png" />
+            </div>
         </div>
     
         <div id="game-over-panel" class="container hidden">
@@ -37,6 +50,9 @@
 
     <script src="/assets/js/constants.js"></script>
     <script src="/assets/js/models/background.js"></script>
+    <script src="/assets/js/models/velocity-skill.js"></script>
+    <script src="/assets/js/models/bomb-skill.js"></script>
+    <script src="/assets/js/models/death-skill.js"></script>
     <script src="/assets/js/models/obstacle.js"></script>
     <script src="/assets/js/models/box.js"></script>
     <script src="/assets/js/models/bomb.js"></script>

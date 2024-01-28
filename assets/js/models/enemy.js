@@ -42,7 +42,9 @@ class Enemy {
                 this.x += this.vx
             } else if (this.movements.left) {
                 this.x -= this.vx
-            } else if (this.movements.up) {
+            }
+            
+            if (this.movements.up) {
                 this.y -= this.vy
             } else if (this.movements.down) {
                 this.y += this.vy
@@ -61,6 +63,7 @@ class Enemy {
     }
 
     draw() {
+        
         if (this.isDead) {
             if (this.sprite.isReady) {
                 this.ctx.drawImage( 
@@ -178,7 +181,7 @@ class Enemy {
 
     bombing() {
         if (this.bombs.length < 1) {
-        this.bombs.push(new Bomb(this.ctx, this.x - 4, this.y))
+            this.bombs.push(new Bomb(this.ctx, this.x - 4, this.y))
         }
     }
 
@@ -214,4 +217,55 @@ class Enemy {
         }
     }
 
+    collidesWithBomberman(e) {
+
+        const enemyCenterX = this.x + this.w / 2
+        const enemyCenterY = this.y + this.h / 2
+        const eCenterX = e.x + e.w / 2
+        const eCenterY = e.y + e.h / 2
+
+        const xDistance = Math.abs(eCenterX - enemyCenterX)
+        const yDistance = Math.abs(eCenterY - enemyCenterY)
+
+        const colX = xDistance < this.h * 2 && yDistance < this.h
+        const colY = yDistance < this.w * 2 && xDistance < this.w
+
+        return colX || colY
+    }
+
+    collidesWithL(element) {
+        return (
+            element.x + element.w >= this.x &&
+            element.x + element.w <= this.x + 5 &&
+            element.y + element.h > this.y &&
+            element.y < this.y + this.h
+        )
+    }
+
+    collidesWithR(element) {
+        return (
+            element.x <= this.x + this.w &&
+            element.x >= this.x + this.w - 5 &&
+            element.y + element.h > this.y &&
+            element.y < this.y + this.h 
+        )
+    }
+
+    collidesWithU(element) {
+        return (
+            element.y + element.h >= this.y &&
+            element.y + element.h <= this.y + 5 &&
+            element.x + element.w > this.x &&
+            element.x < this.x + this.w
+        )
+    }
+
+    collidesWithD(element) {
+        return (
+            element.y <= this.y + this.h &&
+            element.y >= this.y + this.h - 5 &&
+            element.x + element.w > this.x &&
+            element.x < this.x + this.w
+        )
+    }
 }
