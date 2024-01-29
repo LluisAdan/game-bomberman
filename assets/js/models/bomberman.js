@@ -15,19 +15,10 @@ class Bomberman {
         this.bombs = []
         this.countBomb = 1
         this.countBombing = 0
+        this.selectionPj = 1
 
         if (!this.isDead) {
-            this.sprite = new Image()
-            this.sprite.src = '/assets/img/bomberman/all-bomberman-white.png'
-            this.sprite.verticalFrames = 4
-            this.sprite.verticalFrameIndex = 0
-            this.sprite.horizontalFrames = 3
-            this.sprite.horizontalFrameIndex = 0
-            this.sprite.onload = () => {
-                this.sprite.isReady = true
-                this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
-                this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
-            }
+            this.setSpriteImage('/assets/img/bomberman/all-bomberman-white.png')
         }
 
         this.movements = {
@@ -36,6 +27,63 @@ class Bomberman {
             up: false,
             down: false
         }
+    }
+
+    setSpriteImage(imgSrc) {
+        this.sprite = new Image()
+        this.sprite.src = imgSrc
+        this.sprite.verticalFrames = 4
+        this.sprite.verticalFrameIndex = 0
+        this.sprite.horizontalFrames = 3
+        this.sprite.horizontalFrameIndex = 0
+        this.sprite.onload = () => {
+            this.sprite.isReady = true
+            this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
+            this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
+        }
+    }
+
+    setSpriteDeath() {
+        this.sprite = new Image()
+        this.sprite.dead = true
+        
+        switch (this.selectionPj) {
+            case 1:
+                this.sprite.src = '/assets/img/bomberman/bomberman-white-dead.png'
+                break
+            case 2:
+                this.sprite.src = '/assets/img/bomberman/bomberman-red-dead.png'
+                break
+            case 3:
+                this.sprite.src = '/assets/img/bomberman/bomberman-blue-dead.png'
+                break
+        }
+
+        this.sprite.horizontalFrames = 6
+        this.sprite.horizontalFrameIndex = 0
+        this.sprite.verticalFrames = 1
+        this.sprite.verticalFrameIndex = 0
+        this.sprite.onload = () => {
+            this.sprite.isReady = true
+            this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
+            this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
+        }
+    }
+
+    selectionBomberman(selectionPj) {
+        this.selectionPj = selectionPj
+        switch (selectionPj) {
+            case 1:
+                this.setSpriteImage('/assets/img/bomberman/all-bomberman-white.png')
+                break
+            case 2:
+                this.setSpriteImage('/assets/img/bomberman/all-bomberman-red.png')
+                break
+            case 3:
+                this.setSpriteImage('/assets/img/bomberman/all-bomberman-blue.png')
+                break
+        }
+        this.draw()
     }
 
     onKeyEvent(event) {
@@ -116,10 +164,21 @@ class Bomberman {
                 this.animate()
             }
 
+/*
+            if (this.bombs.length > 0) {
+                const bomb = this.bombs[0]
+                bomb.draw()
+                bomb.timeBomb++
+            }
+*/
+
+
             this.bombs.forEach(bomb => {
                 bomb.draw()
                 bomb.timeBomb++
             })
+            
+            
         }
 
         this.clear()
@@ -176,18 +235,7 @@ class Bomberman {
     animateDead() {
     
         if (this.isDead && !this.sprite.dead) {
-            this.sprite = new Image()
-            this.sprite.dead = true
-            this.sprite.src = '/assets/img/bomberman/bomberman-white-dead.png'
-            this.sprite.horizontalFrames = 6
-            this.sprite.horizontalFrameIndex = 0
-            this.sprite.verticalFrames = 1
-            this.sprite.verticalFrameIndex = 0
-            this.sprite.onload = () => {
-                this.sprite.isReady = true
-                this.sprite.frameWidth = Math.ceil(this.sprite.width / this.sprite.horizontalFrames)
-                this.sprite.frameHeight = Math.ceil(this.sprite.height / this.sprite.verticalFrames)
-            }
+            this.setSpriteDeath()
         }
         
         this.animationTick++

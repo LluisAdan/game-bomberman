@@ -497,7 +497,7 @@ class Game {
       if (box.isEliminate) {
         this.getRandom()
 
-        if (this.getRandom() < 15) {
+        if (this.getRandom() < 12) {
           this.velocitySkills.push(new VelocitySkill(this.ctx, box.x + 4, box.y))
         }
 
@@ -505,7 +505,7 @@ class Game {
           this.deathSkills.push(new DeathSkill(this.ctx, box.x + 4, box.y))
         }
 
-        if (this.getRandom() < 15) {
+        if (this.getRandom() < 20) {
           this.bombSkills.push(new BombSkill(this.ctx, box.x + 4, box.y))
         }
       }
@@ -527,15 +527,13 @@ class Game {
       this.timeVelocity++
       this.bomberman.vx = 5
       this.bomberman.vy = 5
-      console.log('a correr')
     }
 
-    if (this.timeVelocity >= 500 && this.doubleVelocity) {
+    if (this.timeVelocity >= 300 && this.doubleVelocity) {
       this.doubleVelocity = false
       this.timeVelocity = 0
       this.bomberman.vx = BOMBERMAN_SPEED_MOVE
       this.bomberman.vy = BOMBERMAN_SPEED_MOVE
-      console.log('normal')
     }
   }
 
@@ -557,6 +555,8 @@ class Game {
   }
 
   selectDifficult(selectDif) {
+    this.enemies = []
+
     if (selectDif === 1) {
       this.enemies.push(new Enemy(this.ctx, 104, 45))
     } else if (selectDif === 2) {

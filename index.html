@@ -17,21 +17,21 @@
         <section id="all-game">
             <div id="start-panel" class="container d-flex flex-column justify-content-center align-items-center">
                 <div id="btns-start">
-                    <button id="btn-choose-pj" class="btn-secondary">SELECT CHAR</button>
-                    <button id="btn-choose-bg" class="btn-secondary">SELECT MAP</button>
+                    <button id="btn-controls" class="btn-secondary">CONTROLS</button>
                     <button id="btn-difficult" class="btn-secondary">DIFFICULT</button>
                     <button id="btn-start-game" class="btn">START</button>
-                    <button id="btn-controls" class="btn-secondary">CONTROLS</button>
-
+                    <button id="btn-choose-pj" class="btn-secondary">SELECT CHAR</button>
+                    <button id="btn-choose-bg" class="btn-secondary">SELECT MAP</button>
                 </div>
     
                 <section class="section">
                     <div id="img-pjs" class="hidden">
-                        <a href="" id="select-pj-1"> <img src="/assets/img/bomberman/solo/solo-white.png" class="select-pj"/></a>
-                        <a href="" id="select-pj-2"> <img src="/assets/img/bomberman/solo/solo-red.png" class="select-pj"/></a>
-                        <a href="" id="select-pj-3"> <img src="/assets/img/bomberman/solo/solo-blue.png" class="select-pj"/></a>
+                        <a href="#" id="select-pj-white"> <img src="/assets/img/bomberman/solo/solo-white.png" class="select-pj"/></a>
+                        <a href="#" id="select-pj-red"> <img src="/assets/img/bomberman/solo/solo-red.png" class="select-pj"/></a>
+                        <a href="#" id="select-pj-blue"> <img src="/assets/img/bomberman/solo/solo-blue.png" class="select-pj"/></a>
                     </div>
-                
+                </section>
+
                 <section class="section">
                     <div id="difficult" class="hidden">
                         <button id="btn-easy" class="btn-difficult">EASY</button>
@@ -39,16 +39,23 @@
                         <button id="btn-hard" class="btn-difficult">HARD</button>
                     </div>
                 </section>
+                
+                <footer id="footer">
+                    <h3>&copy md3</h3>
+                </footer>
             </div>
     
-            <div id="map-panel" class="hidden container">
-                <div id="section-maps">
-                    <a href="" id="btn-map-1"> <img src="/assets/img/bg/bg-1.png" class="sel-map" /></a>
-                    <a href="" id="btn-map-2"> <img src="/assets/img/bg/bg-2.png" class="sel-map" /></a>
-                    <a href="" id="btn-map-3"> <img src="/assets/img/bg/bg-3.png" class="sel-map" /></a>
-                    <a href="" id="btn-map-4"> <img src="/assets/img/bg/bg-4.png" class="sel-map" /></a>
-                    <a href="" id="btn-map-5"> <img src="/assets/img/bg/bg-5.png" class="sel-map" /></a>
-                    <a href="" id="btn-map-6"> <img src="/assets/img/bg/bg-6.png" class="sel-map" /></a>
+            <div id="map-panel" class="hidden container panel">
+                <div id="section-maps" class="mini-panel">
+                    <a href="#" id="btn-map-1"> <img src="/assets/img/bg/bg-1.png" class="sel-map" /></a>
+                    <a href="#" id="btn-map-2"> <img src="/assets/img/bg/bg-2.png" class="sel-map" /></a>
+                    <a href="#" id="btn-map-3"> <img src="/assets/img/bg/bg-3.png" class="sel-map" /></a>
+                    <a href="#" id="btn-map-4"> <img src="/assets/img/bg/bg-4.png" class="sel-map" /></a>
+                    <a href="#" id="btn-map-5"> <img src="/assets/img/bg/bg-5.png" class="sel-map" /></a>
+                    <a href="#" id="btn-map-6"> <img src="/assets/img/bg/bg-6.png" class="sel-map" /></a>
+                </div>
+                <div id="map-back">
+                    <button id="btn-map-back" class="btn btn-back">BACK</button>
                 </div>
             </div>
         
@@ -57,16 +64,24 @@
                 <button id="btn-gameOver-no" class="btn btn-again btn-no">NO</button>
             </div>
     
-            <div id="win-panel" class="container hidden">
+            <div id="win-panel" class="hidden container">
                 <div id="btns-again">
+                    <img id="img-win" src="/assets/img/panels/win-panel-2.png" />
                     <h2>PLAY AGAIN?</h2>
                      <div id="yes-no">
                         <button id="btn-win-yes" class="btn btn-again btn-yes">YES</button>
                         <button id="btn-win-no" class="btn btn-again btn-no">NO</button>
                      </div>
-
                 </div>
+            </div>
 
+            <div id="controls-panel" class="hidden container panel">
+                <div id='controls-bg' class="mini-panel">
+                    <img id="img-controls" src="/assets/img/controls/controls.png"/>
+                </div>
+                <div id="map-back">
+                    <button id="btn-controls-back" class="btn btn-back">BACK</button>
+                </div>
             </div>
             
             <canvas id="main-canvas" class="hidden"></canvas>

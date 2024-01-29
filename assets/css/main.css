@@ -6,6 +6,7 @@
     margin: 0 auto;
     display: block;
     border-radius: 10px;
+    border: 2px solid black;
 }
 
 .main-container {
@@ -41,7 +42,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 150px;
+    margin-top: 200px;
 
 }
 h1 {
@@ -70,11 +71,14 @@ h1 {
     color: rgb(90, 8, 8);
 }
 
-#map-panel {
+.panel {
     background-image: url('/assets/img/panels/select-map/select-map-bg.png');
+    border: 2px solid black;
+    display: flex;
+    align-items: flex-end;
 }
 
-#section-maps {
+.mini-panel {
     border: 2px solid black;
     background: rgb(107, 63, 110);
     width: 450px;
@@ -93,9 +97,21 @@ h1 {
     margin-bottom: 10px;
 }
 
+#map-back {
+    width: 180px;
+    height: 80px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.btn-back {
+    color: rgb(212, 212, 212);
+    margin-bottom: 30px;
+}
+
 .section {
     width: 550px;
-    height: 100px;
+    height: 50px;
     margin-top: 40px;
 }
 
@@ -104,7 +120,6 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .select-pj {
@@ -117,6 +132,7 @@ h1 {
     width: 550px;
     height: 50px;
     display: flex;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -127,6 +143,18 @@ h1 {
     color: rgb(96, 17, 17);
     font-size: 30px;
     margin: 0 15px;
+}
+
+#controls-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#img-controls {
+    width: 500px;
+    height: 600px;
+
 }
 
 #game-over-panel {
@@ -142,10 +170,9 @@ h1 {
 }
 
 #win-panel {
-    background-image: url('/assets/img/panels/win-bg.png');
+    background: black;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
 }
 
 #btns-again {
@@ -154,14 +181,33 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 80px;
+}
 
+#img-win {
+    width: 700px;
+    height: 500px;
 }
 
 h2 {
     font-family: "Sigmar One";
-    color: rgb(2, 2, 2);
-    font-size: 60px;
+    color: rgb(142, 59, 59);
+    font-size: 40px;
 }
+
+#footer {
+    width: 120px;
+    height: 50px;
+    float: left;
+    margin-top: 20px;
+    margin-right: 655px;
+}
+
+h3 {
+    color: rgb(2, 2, 2);
+    font-size: 20px;
+}
+
 
 
 

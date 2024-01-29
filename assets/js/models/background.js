@@ -16,9 +16,6 @@ class Background {
     }
 
     draw() {
-        
-        //this.selectionBackground(1)
-
         if (this.bg.isReady) {
             this.ctx.drawImage(
                 this.bg,
@@ -75,6 +72,8 @@ class Background {
                 }
                 break
         }
+
+    this.draw()
     }
 
 }
