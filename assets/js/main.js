@@ -74,8 +74,49 @@ window.addEventListener('load', () => {
             btnDif.classList.add('hidden')
         }
     })
-    
-    const gameOverYes = document.getElementById('btn-yes')
+
+    const selectEasy = document.getElementById('btn-easy')
+    selectEasy.addEventListener('click', () => {
+        const btnDif = document.getElementById('difficult')
+        btnDif.classList.add('hidden')
+    })
+
+    const selectNormal = document.getElementById('btn-normal')
+    selectNormal.addEventListener('click', () => {
+        const btnDif = document.getElementById('difficult')
+        btnDif.classList.add('hidden')
+    })
+
+    const selectHard = document.getElementById('btn-hard')
+    selectHard.addEventListener('click', () => {
+        const btnDif = document.getElementById('difficult')
+        btnDif.classList.add('hidden')
+    })
+
+    const winYes = document.getElementById('btn-win-yes')
+    winYes.addEventListener('click', () => {
+        const game = new Game('main-canvas')
+        document.addEventListener('keydown', (event) => game.onKeyEvent(event))
+        document.addEventListener('keyup', (event) => game.onKeyEvent(event))
+        const winPanel = document.getElementById('win-panel')
+        winPanel.classList.add('hidden')
+        game.start()
+
+        const canvasPanel = document.getElementById('main-canvas')
+        canvasPanel.classList.remove('hidden')
+    })
+
+    const winNo = document.getElementById('btn-win-no')
+    winNo.addEventListener('click', () => {
+        const winPanel = document.getElementById('win-panel')
+        winPanel.classList.add('hidden')
+
+        const startPanel = document.getElementById('start-panel')
+        startPanel.classList.remove('hidden')
+        window.location.reload()
+    })
+
+    const gameOverYes = document.getElementById('btn-gameOver-yes')
     gameOverYes.addEventListener('click', () => {
         const game = new Game('main-canvas')
         document.addEventListener('keydown', (event) => game.onKeyEvent(event))
@@ -88,7 +129,7 @@ window.addEventListener('load', () => {
         canvasPanel.classList.remove('hidden')
     })
 
-    const gameOverNo = document.getElementById('btn-no')
+    const gameOverNo = document.getElementById('btn-gameOver-no')
     gameOverNo.addEventListener('click', () => {
         const gameOverPanel = document.getElementById('game-over-panel')
         gameOverPanel.classList.add('hidden')

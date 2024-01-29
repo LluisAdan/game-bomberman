@@ -17,7 +17,7 @@ class Background {
 
     draw() {
         
-        this.selectionBackground(1)
+        //this.selectionBackground(1)
 
         if (this.bg.isReady) {
             this.ctx.drawImage(

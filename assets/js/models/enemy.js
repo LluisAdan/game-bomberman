@@ -235,37 +235,37 @@ class Enemy {
 
     collidesWithL(element) {
         return (
-            element.x + element.w >= this.x &&
-            element.x + element.w <= this.x + 5 &&
-            element.y + element.h > this.y &&
-            element.y < this.y + this.h
+            this.x + this.w >= element.x &&
+            this.x + this.w <= element.x + 5 &&
+            this.y + this.h > element.y &&
+            this.y < element.y + element.h
         )
     }
 
     collidesWithR(element) {
         return (
-            element.x <= this.x + this.w &&
-            element.x >= this.x + this.w - 5 &&
-            element.y + element.h > this.y &&
-            element.y < this.y + this.h 
+            this.x <= element.x + element.w &&
+            this.x >= element.x + element.w - 5 &&
+            this.y + this.h > element.y &&
+            this.y < element.y + element.h 
         )
     }
 
     collidesWithU(element) {
         return (
-            element.y + element.h >= this.y &&
-            element.y + element.h <= this.y + 5 &&
-            element.x + element.w > this.x &&
-            element.x < this.x + this.w
+            this.y + this.h >= element.y &&
+            this.y + this.h <= element.y + 5 &&
+            this.x + this.w > element.x &&
+            this.x < element.x + element.w
         )
     }
 
     collidesWithD(element) {
         return (
-            element.y <= this.y + this.h &&
-            element.y >= this.y + this.h - 5 &&
-            element.x + element.w > this.x &&
-            element.x < this.x + this.w
+            this.y <= element.y + element.h &&
+            this.y >= element.y + element.h - 5 &&
+            this.x + this.w > element.x &&
+            this.x < element.x + element.w
         )
-    }
+    }a
 }

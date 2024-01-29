@@ -14,14 +14,14 @@ class Game {
     this.timeExplosion = 0
     this.timeGameOver = 0
     this.timeWin = 0
+    this.doubleVelocity = false
     this.timeVelocity = 0
 
     this.bomberman = new Bomberman(this.ctx, 670, 505)
 
     this.enemies = []
-    this.enemies.push(new Enemy(this.ctx, 104, 45))
-    this.enemies.push(new Enemy(this.ctx, 670, 45))
-    this.enemies.push(new Enemy(this.ctx, 104, 505))
+
+    this.selectDifficult(2)
 
     this.obstacles = []
     this.obstacles.push(new Obstacle(this.ctx, 147, 95))
@@ -238,7 +238,7 @@ class Game {
             this.bombSkills = this.bombSkills.filter(bombS => !bomb.collidesWith(bombS))
           }
 
-          if (this.deathSkills.length > 3) {
+          if (this.deathSkills.length > 2) {
             this.deathSkills = this.deathSkills.filter(death => !bomb.collidesWith(death))
           }
           
@@ -319,9 +319,9 @@ class Game {
           })
         })
 
-      this.velocitySkills = this.velocitySkills.filter(velocity => !this.bomberman.collidesWith(velocity))
-      this.bombSkills = this.bombSkills.filter(bomb => !this.bomberman.collidesWith(bomb))
-      this.deathSkills = this.deathSkills.filter(death => !this.bomberman.collidesWith(death))
+        this.velocitySkills = this.velocitySkills.filter(velocity => !this.bomberman.collidesWith(velocity))
+        this.bombSkills = this.bombSkills.filter(bomb => !this.bomberman.collidesWith(bomb))
+        this.deathSkills = this.deathSkills.filter(death => !this.bomberman.collidesWith(death))
         
     })
 
@@ -332,13 +332,6 @@ class Game {
         this.explosions.push(new Explosion(this.ctx, bomb.x - 45, bomb.y))
         this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 45))
         this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 45))
-
-        /*
-        this.obstacles.forEach((obstacle) => {
-          this.explosions = this.explosions.filter(explosion => !obstacle.collidesWith(explosion))
-        })
-        */
-
         return false
       }
       return true
@@ -352,14 +345,6 @@ class Game {
           this.explosions.push(new Explosion(this.ctx, bomb.x - 45, bomb.y))
           this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y + 45))
           this.explosions.push(new Explosion(this.ctx, bomb.x, bomb.y - 45))
-          
-          /*
-          this.obstacles.forEach((obstacle) => {
-            this.explosions = this.explosions.filter(explosion => !obstacle.collidesWith(explosion))
-          })
-
-          */
-          
           return false
         }
         return true
@@ -490,7 +475,7 @@ class Game {
     this.velocitySkills.forEach(vel => vel.draw())
     this.bombSkills.forEach(bomb => bomb.draw())
     this.deathSkills.forEach(death => death.draw())
-    //this.powerVelocity()
+    this.powerVelocity()
     this.powerBomb()
     this.powerDeath()
     this.explosions.forEach(explosion => explosion.draw())
@@ -516,7 +501,7 @@ class Game {
           this.velocitySkills.push(new VelocitySkill(this.ctx, box.x + 4, box.y))
         }
 
-        if (this.getRandom() < 10) {
+        if (this.getRandom() < 8) {
           this.deathSkills.push(new DeathSkill(this.ctx, box.x + 4, box.y))
         }
 
@@ -534,17 +519,22 @@ class Game {
   powerVelocity() {
     this.velocitySkills.forEach(velocity => {
       if (this.bomberman.collidesWith(velocity)) {
-        this.timeVelocity++
-        this.bomberman.vx = 5
-        this.bomberman.vy = 5
-        console.log('a correr')
+        this.doubleVelocity = true
       }
     })
 
-    if (this.timeVelocity >= 100) {
+    if (this.doubleVelocity) {
+      this.timeVelocity++
+      this.bomberman.vx = 5
+      this.bomberman.vy = 5
+      console.log('a correr')
+    }
+
+    if (this.timeVelocity >= 500 && this.doubleVelocity) {
+      this.doubleVelocity = false
+      this.timeVelocity = 0
       this.bomberman.vx = BOMBERMAN_SPEED_MOVE
       this.bomberman.vy = BOMBERMAN_SPEED_MOVE
-      this.timeVelocity = 0
       console.log('normal')
     }
   }
@@ -565,6 +555,20 @@ class Game {
       }
     })
   }
+
+  selectDifficult(selectDif) {
+    if (selectDif === 1) {
+      this.enemies.push(new Enemy(this.ctx, 104, 45))
+    } else if (selectDif === 2) {
+      this.enemies.push(new Enemy(this.ctx, 104, 45))
+      this.enemies.push(new Enemy(this.ctx, 670, 45))
+    } else if (selectDif === 3) {
+      this.enemies.push(new Enemy(this.ctx, 104, 45))
+      this.enemies.push(new Enemy(this.ctx, 670, 45))
+      this.enemies.push(new Enemy(this.ctx, 104, 505))
+    }
+  }
+
 
   gameOver() {
     if (this.bomberman.isDead) {
@@ -591,7 +595,7 @@ class Game {
       })
     }
 
-    if (enemiesDead === 3) {
+    if (enemiesDead === this.enemies.length) {
       this.timeWin++
       if (this.timeWin >= 200) {
         this.stop()
