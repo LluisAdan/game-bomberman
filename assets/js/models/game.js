@@ -238,7 +238,7 @@ class Game {
             this.bombSkills = this.bombSkills.filter(bombS => !bomb.collidesWith(bombS))
           }
 
-          if (this.deathSkills.length > 2) {
+          if (this.deathSkills.length > 1) {
             this.deathSkills = this.deathSkills.filter(death => !bomb.collidesWith(death))
           }
           
@@ -505,7 +505,7 @@ class Game {
           this.deathSkills.push(new DeathSkill(this.ctx, box.x + 4, box.y))
         }
 
-        if (this.getRandom() < 20) {
+        if (this.getRandom() < 12) {
           this.bombSkills.push(new BombSkill(this.ctx, box.x + 4, box.y))
         }
       }
@@ -529,7 +529,7 @@ class Game {
       this.bomberman.vy = 5
     }
 
-    if (this.timeVelocity >= 300 && this.doubleVelocity) {
+    if (this.timeVelocity >= 420 && this.doubleVelocity) {
       this.doubleVelocity = false
       this.timeVelocity = 0
       this.bomberman.vx = BOMBERMAN_SPEED_MOVE
