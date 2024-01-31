@@ -34,6 +34,9 @@ class Enemy {
             up: false,
             down: false
         }
+
+        this.audioExplosion = new Audio('/assets/audio/explosion.wav')
+        this.audioEnemyDeath = new Audio('/assets/audio/death-enemy.wav')
     }
 
     move() {
@@ -156,6 +159,9 @@ class Enemy {
     animateDead() {
     
         if (this.isDead && !this.sprite.dead) {
+            this.audioEnemyDeath.play()
+            this.audioEnemyDeath.volume = 0.8
+
             this.sprite = new Image()
             this.sprite.dead = true
             this.sprite.src = '/assets/img/enemies/dead-enemy-black.png'
@@ -192,6 +198,8 @@ class Enemy {
             } else {
                 bomb.sprite.horizontalFrames = 7
                 bomb.isExploited = true
+                this.audioExplosion.play()
+                this.audioExplosion.volume = 0.1
             }
             return true
         })

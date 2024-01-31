@@ -27,6 +27,10 @@ class Bomberman {
             up: false,
             down: false
         }
+
+        this.audioExplosion = new Audio('/assets/audio/explosion.wav')
+        this.audioDeath = new Audio('/assets/audio/death-bomberman.mp3')
+        this.audioBombing = new Audio('/assets/audio/put-bomb.mp3')
     }
 
     setSpriteImage(imgSrc) {
@@ -233,9 +237,12 @@ class Bomberman {
     }
 
     animateDead() {
-    
+        
         if (this.isDead && !this.sprite.dead) {
             this.setSpriteDeath()
+            this.audioDeath.play()
+            this.audioDeath.volume = 0.8
+
         }
         
         this.animationTick++
@@ -260,6 +267,8 @@ class Bomberman {
             } else {
                 bomb.sprite.horizontalFrames = 7
                 bomb.isExploited = true
+                this.audioExplosion.play()
+                this.audioExplosion.volume = 0.1
             }
             return true
         })

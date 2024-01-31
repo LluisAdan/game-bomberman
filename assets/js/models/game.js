@@ -167,6 +167,11 @@ class Game {
     this.velocitySkills = []
     this.bombSkills = []
     this.deathSkills = []
+
+    this.audioGame = new Audio('/assets/audio/game-sound.mp3')
+    this.audioTakeSkill = new Audio('/assets/audio/take-skill.wav')
+    this.audioGameOver = new Audio('/assets/audio/gameOver.wav')
+    this.audioWin = new Audio('/assets/audio/win-panel.wav')
   }
 
   onKeyEvent(event) {
@@ -176,6 +181,8 @@ class Game {
   start() {
     if (!this.drawIntervalId) {
       this.drawIntervalId = setInterval(() => {
+        this.audioGame.play()
+        this.audioGame.volume = 0.3
         this.clear()
         this.move()
         this.draw()
@@ -301,6 +308,7 @@ class Game {
             */
             if (bomb.collidesWith(this.bomberman)) {
               this.bomberman.isDead = true
+              
             }
 
             if (this.bomberman.collidesWithL(bomb)) {
@@ -519,6 +527,9 @@ class Game {
   powerVelocity() {
     this.velocitySkills.forEach(velocity => {
       if (this.bomberman.collidesWith(velocity)) {
+        this.audioTakeSkill.play()
+        this.audioTakeSkill.volume = 0.05
+
         this.doubleVelocity = true
       }
     })
@@ -540,6 +551,9 @@ class Game {
   powerBomb() {
     this.bombSkills.forEach(bomb => {
       if (this.bomberman.collidesWith(bomb)) {
+        this.audioTakeSkill.play()
+        this.audioTakeSkill.volume = 0.05
+
         this.bomberman.countBomb++
       }
     })
@@ -576,6 +590,9 @@ class Game {
       if (this.timeGameOver >= 200) {
         this.stop()
 
+        this.audioGameOver.play()
+        this.audioGameOver.volume = 0.5
+
         const canvasPanel = document.getElementById('main-canvas')
         canvasPanel.classList.add('hidden')
 
@@ -599,6 +616,9 @@ class Game {
       this.timeWin++
       if (this.timeWin >= 200) {
         this.stop()
+
+        this.audioWin.play()
+        this.audioWin.volume = 0.5
 
         const canvasPanel = document.getElementById('main-canvas')
         canvasPanel.classList.add('hidden')
