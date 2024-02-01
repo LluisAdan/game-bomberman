@@ -199,7 +199,7 @@ class Enemy {
                 bomb.sprite.horizontalFrames = 7
                 bomb.isExploited = true
                 this.audioExplosion.play()
-                this.audioExplosion.volume = 0.1
+                this.audioExplosion.volume = 0.08
             }
             return true
         })

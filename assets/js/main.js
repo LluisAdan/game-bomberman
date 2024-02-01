@@ -20,7 +20,7 @@ window.addEventListener('load', () => {
     const startGameBtn = document.getElementById('btn-start-game')
     startGameBtn.addEventListener('click', () => {
         audioBtnMenu.play()
-        audioBtnMenu.volume = 0.1
+        audioBtnMenu.volume = 0.2
 
         document.addEventListener('keydown', (event) => game.onKeyEvent(event))
         document.addEventListener('keyup', (event) => game.onKeyEvent(event))
@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
     const selectMapBtn = document.getElementById('btn-choose-bg')
     selectMapBtn.addEventListener('click', () => {
         audioBtnMenu.play()
-        audioBtnMenu.volume = 0.1
+        audioBtnMenu.volume = 0.2
 
         const mapPanel = document.getElementById('map-panel')
         mapPanel.classList.remove('hidden')
@@ -123,7 +123,7 @@ window.addEventListener('load', () => {
     const panelPj = document.getElementById('btn-choose-pj')
     panelPj.addEventListener('click', () => {
         audioBtnMenu.play()
-        audioBtnMenu.volume = 0.1
+        audioBtnMenu.volume = 0.2
 
         const imgPj = document.getElementById('img-pjs')
         if (imgPj.classList.value.includes('hidden')) {
@@ -168,7 +168,7 @@ window.addEventListener('load', () => {
     const difficult = document.getElementById('btn-difficult')
     difficult.addEventListener('click', () => {
         audioBtnMenu.play()
-        audioBtnMenu.volume = 0.1
+        audioBtnMenu.volume = 0.2
 
         const btnDif = document.getElementById('difficult')
         if (btnDif.classList.value.includes('hidden')) {
@@ -216,7 +216,7 @@ window.addEventListener('load', () => {
     const controls = document.getElementById('btn-controls')
     controls.addEventListener('click', () => {
         audioBtnMenu.play()
-        audioBtnMenu.volume = 0.1
+        audioBtnMenu.volume = 0.2
 
         const controlsPanel = document.getElementById('controls-panel')
         controlsPanel.classList.remove('hidden')
@@ -299,11 +299,4 @@ window.addEventListener('load', () => {
         startPanel.classList.remove('hidden')
         window.location.reload()
     })
-    
-    /*
-    const game = new Game('main-canvas')
-    document.addEventListener('keydown', (event) => game.onKeyEvent(event))
-    document.addEventListener('keyup', (event) => game.onKeyEvent(event))
-    game.start()
-    */
 })

@@ -590,6 +590,9 @@ class Game {
       if (this.timeGameOver >= 200) {
         this.stop()
 
+        this.audioGame.pause()
+        this.audioGame.currentTime = 0
+
         this.audioGameOver.play()
         this.audioGameOver.volume = 0.5
 
@@ -617,8 +620,11 @@ class Game {
       if (this.timeWin >= 200) {
         this.stop()
 
+        this.audioGame.pause()
+        this.audioGame.currentTime = 0
+
         this.audioWin.play()
-        this.audioWin.volume = 0.5
+        this.audioWin.volume = 0.4
 
         const canvasPanel = document.getElementById('main-canvas')
         canvasPanel.classList.add('hidden')
